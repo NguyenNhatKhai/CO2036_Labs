@@ -127,6 +127,7 @@ function [yn, yorigin] = fsconvolution(xn, xorigin, hn, horigin)
         [temp, temporigin] = multi(xn, xorigin, hshifted, hshiftedorigin)
         yn(i - nmin + 1) = sum(temp)
     end
+    drawconvolution(xn, xorigin, hn, horigin, yn, yorigin)
     disp("Folding and shifting convolution start: " + ascii(10) + ascii(9) + "xn = " + signalToString(xn, xorigin) + ascii(10) + ascii(9) + "hn = " + signalToString(hn, horigin) + ascii(10) + ascii(9) + "yn = " + signalToString(yn, yorigin) + ascii(10) + "  Folding and shifting convolution finish!")
 endfunction
 
@@ -148,6 +149,7 @@ function [yn, yorigin] = mconvolution(xn, xorigin, hn, horigin)
         end
     end
     yorigin = xorigin + horigin - 1
+    drawconvolution(xn, xorigin, hn, horigin, yn, yorigin)
     disp("Matrix convolution start: " + ascii(10) + ascii(9) + "xn = " + signalToString(xn, xorigin) + ascii(10) + ascii(9) + "hn = " + signalToString(hn, horigin) + ascii(10) + ascii(9) + "yn = " + signalToString(yn, yorigin) + ascii(10) + "  Matrix convolution finish!")
 endfunction
 

@@ -122,6 +122,7 @@ function [yn, yorigin] = cfsconvolution(xn, xorigin, hn, horigin)
         [temp, temporigin] = cmulti(xn, xorigin, hshifted, hshiftedorigin)
         yn(i) = sum(temp)
     end
+    drawcconvolution(xn, xorigin, hn, horigin, yn, yorigin)
     disp("Circular folding and shifting convolution start: " + ascii(10) + ascii(9) + "xn = " + signalToString(xn, xorigin) + ascii(10) + ascii(9) + "hn = " + signalToString(hn, horigin) + ascii(10) + ascii(9) + "yn = " + signalToString(yn, yorigin) + ascii(10) + "  Circular folding and shifting convolution finish!")
 endfunction
 
@@ -146,6 +147,21 @@ function [yn, yorigin] = cmconvolution(xn, xorigin, hn, horigin)
     end
     yn = (matrixxn * hn')'
     yorigin = horigin
+    drawcconvolution(xn, xorigin, hn, horigin, yn, yorigin)
     disp("Circular matrix convolution start: " + ascii(10) + ascii(9) + "xn = " + signalToString(xn, xorigin) + ascii(10) + ascii(9) + "hn = " + signalToString(hn, horigin) + ascii(10) + ascii(9) + "yn = " + signalToString(yn, yorigin) + ascii(10) + "  Circular matrix convolution finish!")
+endfunction
+
+function drawcconvolution(xn, xorigin, hn, horigin, yn, yorigin)
+    clf
+    [en, eorigin] = energy(yn, yorigin)
+    nmindisplay = min(- xorigin + 1, - yorigin + 1, - eorigin + 1)
+    nmaxdisplay = max(length(xn) - xorigin, length(yn) - yorigin, length(en) - eorigin)
+    xndisplay = [zeros(1, - xorigin + 1 - nmindisplay), xn, zeros(1, nmaxdisplay - length(xn) + xorigin)]
+    yndisplay = [zeros(1, - yorigin + 1 - nmindisplay), yn, zeros(1, nmaxdisplay - length(yn) + yorigin)]
+    endisplay = [zeros(1, - eorigin + 1 - nmindisplay), en, zeros(1, nmaxdisplay - length(en) + eorigin)]
+    n = nmindisplay : nmaxdisplay
+    plot2d3(n, xndisplay, 1)
+    plot2d3(n, yndisplay, 2)
+    plot2d3(n, endisplay, 3)
 endfunction
 
