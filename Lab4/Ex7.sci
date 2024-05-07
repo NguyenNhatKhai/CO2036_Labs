@@ -111,10 +111,10 @@ function [yn, yorigin] = cfsconvolution(xn, xorigin, hn, horigin)
     yn = zeros(1, length(hn))
     yorigin = horigin
     for i = 1 : length(yn)
-        if i < 0 then
-            [hshifted, hshiftedorigin] = advance(hfolded, hfoldedorigin, - i)
-        elseif i > 0 then
-            [hshifted, hshiftedorigin] = delay(hfolded, hfoldedorigin, i)
+        if i - 1 < 0 then
+            [hshifted, hshiftedorigin] = advance(hfolded, hfoldedorigin, - i + 1)
+        elseif i - 1 > 0 then
+            [hshifted, hshiftedorigin] = delay(hfolded, hfoldedorigin, i - 1)
         else
             hshifted = hfolded
             hshiftedorigin = hfoldedorigin
