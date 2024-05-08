@@ -15,12 +15,10 @@ N = 6
 n = 0 : 5 * N
 subplot(3, 1, 2)
 plot(n, x, "r")
-disp(x)
 
-x_max = max(x(n))
-x_min = min(x(n))
 function y_q = x_q(n)
-    y_q = ceil(x(n) / 0.1) * 0.1
+    y_q = floor(x(n) / 0.1) * 0.1
 endfunction
 subplot(3, 1, 3)
 plot(n, x_q, "y")
+disp(x_q(n))
